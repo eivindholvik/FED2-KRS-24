@@ -1,0 +1,7 @@
+.container-custom {
+  @extend .container;
+  background-color: $primary;
+  border-radius: $card-border-radius;
+  box-shadow: 0 0 14px black;
+  padding: 1rem;
+}

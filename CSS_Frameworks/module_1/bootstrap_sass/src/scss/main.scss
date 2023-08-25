@@ -1,0 +1,17 @@
+// sass 7-1 pattern
+// https://gist.github.com/rveitch/84cea9650092119527bc
+
+@import "./utils/variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@import "./layout/container-custom";
+
+@import "./components/box-custom";
+
+.btn-custom {
+  @extend .btn-warning;
+
+  &:hover {
+    @extend .btn-danger;
+  }
+}
