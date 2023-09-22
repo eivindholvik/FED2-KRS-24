@@ -1,0 +1,11 @@
+.btn-custom {
+  @extend btn;
+  border-radius: $btn-radius;
+  background: $primary;
+  &-primary {
+    width: 3rem;
+  }
+  &-highlight {
+    box-shadow: 0 0 2rem purple;
+  }
+}

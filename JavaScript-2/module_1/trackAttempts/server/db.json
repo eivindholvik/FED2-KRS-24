@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "authorF": "typicode",
+      "authorL": "none"
+    },
+    {
+      "id": 2,
+      "title": "first post",
+      "authorF": "eivind",
+      "authorL": "holvik"
+    },
+    { "id": 3, "title": "second", "authorF": "eivind", "authorL": "holvik" }
+  ],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" }
+}
