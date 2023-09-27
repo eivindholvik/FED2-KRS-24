@@ -9,6 +9,39 @@ export const canvas = document.querySelector('#flappy-canvas');
 
 const ctx = canvas.getContext("2d");
 
+const imageUrls = [
+  `background-day`,
+  `pipe-green`,
+  `pipe-green-down`,
+  `gameover`,
+  `base`,
+  `bluebird-downflap`,
+  `bluebird-midflap`,
+  `bluebird-upflap`
+];
+
+for (let i = 0; i < 10; i++) {
+  imageUrls.push(`${i}`);
+}
+
+
+
+const loadImagesPromises = imageUrls.map(url => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = `../resources/sprites/${url}.png`;
+  });
+})
+
+const preloadImages = () => {
+  return Promise.all(loadImagesPromises);
+}
+
+// const imagess = [];
+
+// preloadImages().then(images => { imagess = images });
 
 function drawBackground() {
   let background = new Image();
