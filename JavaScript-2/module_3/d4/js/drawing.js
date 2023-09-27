@@ -68,7 +68,7 @@ function drawBackground(i) {
   ctx1.fillRect(275, 275, 50, 75);
 
 
-
+  // this is the roof
   ctx1.beginPath();
   ctx1.moveTo(200, 200);
   ctx1.lineTo(300, 100);
