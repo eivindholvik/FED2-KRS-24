@@ -84,6 +84,13 @@ function drawScore() {
 }
 
 function drawBird() {
+
+  ctx.save();
+
+  ctx.translate((modelBird.posX + (modelBird.size[0] / 2)), (modelBird.posY + (modelBird.size[1] / 2)));
+  // (parseInt(modelBird.dy * 2) 
+  ctx.rotate((modelBird.dy * 5 * Math.PI) / 180);
+  ctx.translate(-(modelBird.posX + (modelBird.size[0] / 2)), -(modelBird.posY + (modelBird.size[1] / 2)));
   let bird = new Image();
   if (modelBird.animationCounter.counter > modelBird.animationCounter.limit / modelGame.speed) {
     modelBird.currentFrame++;
@@ -94,6 +101,7 @@ function drawBird() {
   if (modelBird.currentFrame > 3) modelBird.currentFrame = 0;
   bird.src = modelBird.urls[modelBird.currentFrame === 3 ? 1 : modelBird.currentFrame];
   ctx.drawImage(bird, modelBird.posX, modelBird.posY, ...modelBird.size);
+  ctx.restore();
 
 }
 

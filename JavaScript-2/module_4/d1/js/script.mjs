@@ -18,8 +18,33 @@ export async function updateHighscore() {
     const [nGarbage, name] = sortedScores[i].name.split(" ");
     ulHighscore.innerHTML += `<li>${name}: ${score}`;
   }
+  return sortedScores;
+}
+
+export async function deleteHighscores() {
+  try {
+    const promises = [];
+    const sortedScores = await updateHighscore();
+    const deleteURLs = sortedScores.map(score => {
+      return `https://crud-examples.onrender.com/${score.id}`;
+    })
+    for (const url of deleteURLs) {
+      promises.push(fetch(url, {
+        method: "DELETE"
+      }))
+    }
+    await Promise.all(promises);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 (async () => {
   await updateHighscore();
 })();
+
+document.querySelector('#delete').addEventListener("click", async (e) => {
+  e.preventDefault();
+  await deleteHighscores();
+  await updateHighscore();
+})

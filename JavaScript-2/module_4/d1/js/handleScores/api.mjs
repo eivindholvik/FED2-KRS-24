@@ -18,6 +18,7 @@ export async function submitScore(score) {
   }
 }
 
+
 export async function displayHighscore() {
   try {
     const response = await fetch("https://crud-examples.onrender.com/");
