@@ -6,12 +6,20 @@
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./js/view.mjs"></script>
     <script type="module" src="./js/controller.mjs"></script>
+    <script type="module" src="./js/handleScores/form.mjs"></script>
+    <script type="module" src="./js/script.mjs"></script>
     <title>Document</title>
   </head>
   <body>
     <div id="flappy">
       <h2>Flappy bird</h2>
+      <form id="player_form">
+        <label for="player">Type your name</label>
+        <input name="player" id="player" type="text" />
+        <input type="submit" />
+      </form>
       <canvas id="flappy-canvas"></canvas>
-    </div>
+      <h3>Highscores:</h3>
+      <ul id="highscore"></ul>
   </body>
 </html>

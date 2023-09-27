@@ -1,4 +1,6 @@
 import { enemy as modelEnemy, base as modelBase, bird as modelBird, canvasSize, game as modelGame } from "./model.mjs";
+import { submitScore } from "./handleScores/api.mjs";
+import { updateHighscore } from "./script.mjs";
 
 export const canvas = document.querySelector('#flappy-canvas');
 
@@ -99,12 +101,17 @@ function checkColitions() {
   }
 }
 
-function gameOver() {
+async function gameOver() {
+  if (!modelBird.alive) return;
   modelBird.alive = false;
+  modelGame.playing = false;
+  await submitScore(modelGame.score);
+  await updateHighscore();
+
 }
 
 function render() {
-  if (modelBird.alive) {
+  if (modelBird.alive && modelGame.playing) {
     updateStates();
   }
   checkColitions();

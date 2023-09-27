@@ -2,6 +2,7 @@ export const game = {
   fps: 60,
   speed: 1,
   score: 0,
+  playing: false,
   gravity: 0.2
 };
 
