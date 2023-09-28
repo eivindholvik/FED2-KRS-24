@@ -36,9 +36,13 @@ export async function callApi(method, body) {
           deleteIDs.push(data[i].id);
         }
       }
-      const deletePromises = deleteIDs.map(id => {
-        callApi("DELETE", { id: id });
-      })
+      const promises = [];
+      for (const id of deleteIDs) {
+        promises.push(fetch(`${url}${id}`, {
+          method: "DELETE"
+        }))
+      }
+      await Promise.all(promises);
     }
     if (method === "GET") {
       populateWithData(data);
