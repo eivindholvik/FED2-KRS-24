@@ -28,7 +28,7 @@ export const bird = {
   },
   alive: true,
   currentFrame: 0,
-  urls: ["../resources/sprites/bluebird-upflap.png", "../resources/sprites/bluebird-midflap.png", "../resources/sprites/bluebird-downflap.png"],
+  urls: ["bluebird-upflap", "bluebird-midflap", "bluebird-downflap"],
   jumpConst: 20,
   size: [30, 30],
   startPosY: (canvasSize[1] - base.height) / 2,

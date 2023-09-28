@@ -39,36 +39,37 @@ const preloadImages = () => {
   return Promise.all(loadImagesPromises);
 }
 
-// const imagess = [];
+const loadedImages = new Map();
 
-// preloadImages().then(images => { imagess = images });
+preloadImages().then(images => {
+  images.forEach((image, i) => loadedImages.set(imageUrls[i], image));
+  frame();
+});
+
+
+console.log(loadedImages);
 
 function drawBackground() {
-  let background = new Image();
-  background.src = `../resources/sprites/background-day.png`;
+  const background = loadedImages.get("background-day");
   ctx.drawImage(background, 0, 0, ...canvasSize);
 }
 
 function drawEnemy() {
   const [x, y] = modelEnemy.pos;
-  let enemy = new Image();
-  enemy.src = `../resources/sprites/pipe-green.png`;
+  const enemy = loadedImages.get("pipe-green");
   ctx.drawImage(enemy, x, y, ...modelEnemy.size);
-  let enemyDown = new Image();
-  enemyDown.src = `../resources/sprites/pipe-green-down.png`;
+  const enemyDown = loadedImages.get("pipe-green-down");
   ctx.drawImage(enemyDown, x, y - modelBird.size[1] - modelEnemy.size[1] - modelEnemy.gap, ...modelEnemy.size);
 }
 
 function drawGameOver() {
-  let gameOver = new Image();
-  gameOver.src = `../resources/sprites/gameover.png`;
+  const gameOver = loadedImages.get("gameover");
   ctx.drawImage(gameOver, (canvasSize[0] - 192) / 2, canvasSize[1] / 4, 192, 42);
 }
 
 function drawBase() {
 
-  let base = new Image();
-  base.src = `../resources/sprites/base.png`;
+  let base = loadedImages.get("base");
   ctx.drawImage(base, modelBase.posX, canvasSize[1] - modelBase.height, canvasSize[0], modelBase.height);
   ctx.drawImage(base, modelBase.posX + canvasSize[0], canvasSize[1] - modelBase.height, canvasSize[0], modelBase.height);
 
@@ -77,8 +78,7 @@ function drawBase() {
 function drawScore() {
   const scoreStr = modelGame.score.toString();
   for (let i = 0; i < scoreStr.length; i++) {
-    let score = new Image();
-    score.src = `../resources/sprites/${scoreStr.charAt(i)}.png`;
+    const score = loadedImages.get(scoreStr.charAt(i));
     ctx.drawImage(score, (canvasSize[0] - canvasSize[0] / 8) - (20 * (scoreStr.length - i)), canvasSize[1] / 16, 16, 36);
   }
 }
@@ -88,10 +88,8 @@ function drawBird() {
   ctx.save();
 
   ctx.translate((modelBird.posX + (modelBird.size[0] / 2)), (modelBird.posY + (modelBird.size[1] / 2)));
-  // (parseInt(modelBird.dy * 2) 
   ctx.rotate((modelBird.dy * 5 * Math.PI) / 180);
   ctx.translate(-(modelBird.posX + (modelBird.size[0] / 2)), -(modelBird.posY + (modelBird.size[1] / 2)));
-  let bird = new Image();
   if (modelBird.animationCounter.counter > modelBird.animationCounter.limit / modelGame.speed) {
     modelBird.currentFrame++;
     modelBird.animationCounter.counter = 0;
@@ -99,7 +97,8 @@ function drawBird() {
   modelBird.animationCounter.counter++;
 
   if (modelBird.currentFrame > 3) modelBird.currentFrame = 0;
-  bird.src = modelBird.urls[modelBird.currentFrame === 3 ? 1 : modelBird.currentFrame];
+  const bird = loadedImages.get(modelBird.urls[modelBird.currentFrame === 3 ? 1 : modelBird.currentFrame])
+  // bird.src = modelBird.urls[modelBird.currentFrame === 3 ? 1 : modelBird.currentFrame];
   ctx.drawImage(bird, modelBird.posX, modelBird.posY, ...modelBird.size);
   ctx.restore();
 
@@ -173,16 +172,3 @@ function frame() {
   render();
   requestAnimationFrame(frame);
 }
-
-frame();
-
-// setInterval(() => {
-//   modelGame.score++;
-// }, 20)
-
-// frame();
-
-// setInterval(() => {
-//   updateStates();
-//   tull++;
-// }, 1000 / modelGame.fps);
