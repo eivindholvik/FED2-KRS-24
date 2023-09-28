@@ -6,6 +6,11 @@ const ul = document.querySelector('.display');
 
 export async function callApi(method, body) {
   try {
+    let deleteAll = false;
+    if (method === "DELETE" && body.id === "") {
+      deleteAll = true;
+      method = "GET";
+    }
     body.name = `${prefix} ${body.name}`;
     let tempBody;
     if (method === "GET") {
@@ -24,6 +29,17 @@ export async function callApi(method, body) {
     const response = await fetch(`${url}${method !== "POST" ? `${body.id}` : ""}`, tempBody)
     const data = await response.json();
     console.log(data);
+    if (deleteAll) {
+      const deleteIDs = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].name.startsWith(prefix)) {
+          deleteIDs.push(data[i].id);
+        }
+      }
+      const deletePromises = deleteIDs.map(id => {
+        callApi("DELETE", { id: id });
+      })
+    }
     if (method === "GET") {
       populateWithData(data);
     }
