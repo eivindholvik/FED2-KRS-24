@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="./script.mjs"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <form data-name="api-form">
+      <label for="id">id:</label>
+      <input name="id" id="id" type="text" placeholder="id" />
+      <label for="name">name:</label>
+      <input name="name" id="name" type="text" />
+      <label for="content">content:</label>
+      <input name="content" id="content" type="text" />
+      <div class="radio">
+        <label for="get">GET:</label>
+        <input type="radio" name="method" id="get" value="GET" />
+        <label for="put">PUT:</label>
+        <input type="radio" name="method" id="put" value="PUT" />
+        <label for="post">POST:</label>
+        <input type="radio" name="method" id="post" value="POST" />
+        <label for="delete">DELETE:</label>
+        <input type="radio" name="method" id="delete" value="DELETE" />
+      </div>
+      <input type="submit" value="get all posts" />
+    </form>
+    <ul class="display"></ul>
+  </body>
+</html>
