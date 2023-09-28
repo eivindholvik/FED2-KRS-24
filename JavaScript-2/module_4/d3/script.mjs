@@ -8,10 +8,10 @@ htmlForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(htmlForm);
   const body = { content: formData.get("content"), id: formData.get("id"), name: formData.get("name") };
-  callApi(document.querySelector('[name="method"]:checked').value, body)
+  callApi(document.querySelector('[name="method"]:checked').value, body);
 });
 
-//hmmm
+
 document.querySelectorAll('[name="method"]').forEach((radio) => radio.addEventListener("click", (e) => {
   const formData = new FormData(htmlForm);
   if (radio.value === "GET" && formData.get("id") === "") {

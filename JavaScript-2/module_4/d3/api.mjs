@@ -1,5 +1,5 @@
 const url = "https://crud-examples.onrender.com/";
-const prefix = "e1924";
+const prefix = "e19245346"; // skal være unik for deg
 
 const ul = document.querySelector('.display');
 
@@ -57,7 +57,7 @@ function populateWithData(data) {
   if (Array.isArray(data)) {
     data.forEach(item => addListItem(item));
   } else {
-    addListItem(item);
+    addListItem(data);
   }
 }
 
