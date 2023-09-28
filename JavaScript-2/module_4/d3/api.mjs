@@ -7,20 +7,21 @@ const ul = document.querySelector('.display');
 export async function callApi(method, body) {
   try {
     body.name = `${prefix} ${body.name}`;
-    let response;
+    let tempBody;
     if (method === "GET") {
-      response = await fetch(`${url}${body.id}`, {
+      tempBody = {
         method: method,
-      })
+      };
     } else {
-      response = await fetch(`${url}${method !== "POST" ? `${body.id}` : ""}`, {
+      tempBody = {
         method: method,
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
-      })
+      };
     }
+    const response = await fetch(`${url}${method !== "POST" ? `${body.id}` : ""}`, tempBody)
     const data = await response.json();
     console.log(data);
     if (method === "GET") {
@@ -41,5 +42,8 @@ function populateWithData(data) {
 }
 
 function addListItem({ id, name, content }) {
-  ul.innerHTML += `<li>${id}, ${name}, ${content}</li>`
+  if (name.startsWith(prefix)) {
+    const outName = name.substr(prefix.length + 1);
+    ul.innerHTML += `<li>${id}, ${outName}, ${content}</li>`
+  }
 }
