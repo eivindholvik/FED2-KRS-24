@@ -3,6 +3,7 @@ import { bird as modelBird, game as modelGame, enemy as modelEnemy } from "./mod
 window.addEventListener("keydown", (e) => {
   if (!localStorage.getItem("player")) return;
   if (e.code === "Space") {
+    e.preventDefault();
     if (modelGame.playing) {
       modelBird.dy = - modelGame.gravity * modelBird.jumpConst;
     } else {

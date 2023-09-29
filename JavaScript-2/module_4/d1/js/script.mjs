@@ -23,6 +23,7 @@ export async function updateHighscore() {
 
 export async function deleteHighscores() {
   try {
+    if (localStorage.getItem("player") !== "admin") return;
     const promises = [];
     const sortedScores = await updateHighscore();
     const deleteURLs = sortedScores.map(score => {
