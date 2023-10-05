@@ -65,3 +65,27 @@ document.querySelector('button').addEventListener("click", () => {
   console.log("hei");
   subject.fire();
 });
+
+
+let options = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0,
+};
+let intersectionCounter = 0;
+
+let observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    console.log(entry);
+    if (entry.isIntersecting) {
+      let elem = entry.target;
+
+      if (entry.intersectionRatio >= 0.75) {
+        intersectionCounter++;
+      }
+    }
+    console.log(intersectionCounter);
+  });
+}, options);
+
+observer.observe(document.querySelector('#scrollArea'));

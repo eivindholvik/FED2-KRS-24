@@ -1,0 +1,9 @@
+.full {
+  height: 100vh;
+  background-color: blue;
+  margin-top: 2rem;
+}
+
+#scrollArea {
+  background-color: red;
+}
