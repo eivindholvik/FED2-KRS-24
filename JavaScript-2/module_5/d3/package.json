@@ -1,0 +1,24 @@
+{
+  "name": "d3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass-watch": "sass --watch src/scss:dist/css",
+    "sass-build": "sass src/scss:dist/css",
+    "ts-watch": "tsc --watch",
+    "ts-build": "tsc",
+    "live-server": "live-server",
+    "dev": "npm-run-all --parallel ts-watch sass-watch live-server",
+    "build": "npm-run-all --parallel ts-build sass-build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.68.0",
+    "typescript": "^5.2.2"
+  }
+}
