@@ -3,6 +3,9 @@ import api from "./api.mjs";
 const jwt = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODE2LCJuYW1lIjoiRWl2aW5kZHNzIiwiZW1haWwiOiJlaXZpbmQuaG9saEBub3JvZmYubm8iLCJhdmF0YXIiOm51bGwsImJhbm5lciI6bnVsbCwiaWF0IjoxNjk1OTg4NzM5fQ.Dd6AXzwF5ItrsbLFz16eH6xpDsNSdiHMLuVbbVzjFKw`;
 const endpoint = "/profiles";
 
+
+const input = document.querySelector('#search');
+
 async function createAllProfiles() {
   let done = false;
   let allProfiles = [];
@@ -10,13 +13,14 @@ async function createAllProfiles() {
 
   while (!done) {
     const moreProfiles = await api(endpoint, jwt, i);
-    if (moreProfiles.length > 0) {
-      allProfiles = [...allProfiles, ...moreProfiles];
-    } else {
+    allProfiles = [...allProfiles, ...moreProfiles];
+    if (moreProfiles.length < 100) {
       done = true;
     }
     i++;
   }
+
+  input.removeAttribute("disabled");
 
   return allProfiles;
 }
@@ -25,8 +29,20 @@ function getBubbleRes(input, allProfiles) {
   return allProfiles.filter(item => item.name.includes(input));
 }
 
-const input = document.querySelector('#search');
 
+
+function createSearchResults(searchResult) {
+  const searchBox = document.querySelector(".search_box");
+  searchBox.innerHTML = "";
+  const length = searchResult.length > 10 ? 10 : searchResult.length;
+  for (let i = 0; i < length; i++) {
+    searchBox.innerHTML += `<div>
+    <h2>${searchResult[i].name}</h2>
+    <p>${searchResult[i].email}</p>
+    </div>`
+  }
+
+}
 
 (async () => {
   const allProfs = await createAllProfiles();
@@ -36,10 +52,13 @@ const input = document.querySelector('#search');
   input.addEventListener("keyup", (e) => {
     e.preventDefault();
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      console.log(getBubbleRes(e.target.value, allProfs));
-    }, 500);
-    console.log(timer);
+    if (e.code === "Enter") {
+      createSearchResults(getBubbleRes(e.target.value, allProfs));
+    } else {
+      timer = setTimeout(() => {
+        createSearchResults(getBubbleRes(e.target.value, allProfs));
+      }, 500);
+    }
   })
 
 })();
