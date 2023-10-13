@@ -21,6 +21,7 @@ async function createAllProfiles() {
   }
 
   input.removeAttribute("disabled");
+  input.placeholder = "... profiles / tags"
 
   return allProfiles;
 }
@@ -52,13 +53,10 @@ function createSearchResults(searchResult) {
   input.addEventListener("keyup", (e) => {
     e.preventDefault();
     clearTimeout(timer);
-    if (e.code === "Enter") {
+    timer = setTimeout(() => {
       createSearchResults(getBubbleRes(e.target.value, allProfs));
-    } else {
-      timer = setTimeout(() => {
-        createSearchResults(getBubbleRes(e.target.value, allProfs));
-      }, 500);
-    }
+    }, e.code === "Enter" ? 0 : 500);
+
   })
 
 })();
