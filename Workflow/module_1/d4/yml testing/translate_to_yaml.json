@@ -1,0 +1,21 @@
+{
+  "name": "Eivind",
+  "children": ["Gustav"],
+  "wife": "Camilla",
+  "stocks": {
+    "apple": 143,
+    "microsoft": 23,
+    "noroff": 1000
+  },
+  "colors": [
+    { "red": "255, 0, 0" },
+    { "green": "0, 255, 0" },
+    { "blue": "0, 0, 255" }
+  ],
+  "jobs": [
+    ["wake up", "go outside"],
+    ["go to store", "pick up milk"],
+    ["go to swimmingpool", "read the news"]
+  ],
+  "marius": "er kul"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "pages_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"I am genereating ./build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eivindholvik/pages_test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eivindholvik/pages_test/issues"
+  },
+  "homepage": "https://github.com/eivindholvik/pages_test#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  }
+}
