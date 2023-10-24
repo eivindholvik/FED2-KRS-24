@@ -1,0 +1,18 @@
+name: Test our Secret Value
+
+on: [workflow_dispatch] 
+
+env:
+  ## Sets environment variable
+  
+  API_KEY: ${{secrets.API_KEY}}    
+  
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm i  
+      - name: Run test script
+        run: npm run test
