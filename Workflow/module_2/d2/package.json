@@ -1,0 +1,13 @@
+{
+  "name": "d2",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "math.js",
+  "scripts": {
+    "test": "node ./src/js/tests/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
