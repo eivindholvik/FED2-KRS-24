@@ -13,12 +13,16 @@ class AllTests {
   run() {
     this.tests.forEach(TestClass => {
       const { accepted, errors } = TestClass.runTests();
-      this.totalLen += accepted + this.errors;
+      this.totalLen += accepted + errors;
       this.totalAcc += accepted;
       this.totalErr += errors;
     });
+    console.log("--- RESULT ---");
     if (this.totalErr !== 0) {
+      console.log(`${this.totalErr} / ${this.totalLen} tests failed`);
       throw new Error("NOT ACCEPTED!!!!")
+    } else {
+      console.log(`All tests passed: ${this.totalAcc} / ${this.totalLen}`);
     }
   }
 }

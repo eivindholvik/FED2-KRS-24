@@ -57,8 +57,7 @@ class TestClass {
         if (expected === Error) {
           let temp = false;
           try {
-            console.log("here");
-            console.log("hei", func(...args));
+            func(...args);
             temp = true;
             // this.addError(func, `Function with index ${i} did not pass test ${j} with the args of ${args} and result of ${expected}.`);
           } catch (e) {
