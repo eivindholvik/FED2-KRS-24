@@ -50,16 +50,35 @@ class TestClass {
     for (let i = 0; i < this.testArray.length; i++) {
       for (let j = 0; j < this.testArray[i].testCases.length; j++) {
         const { func, testCases } = this.testArray[i];
-        const { args, expected } = testCases[j];
-        try {
-          if (func(...args) === expected) {
-            this.addAccepts(func, `Function with index ${i} passed test ${j} with the args of ${args} and result of ${expected}`);
-          } else {
-            throw new Error(`Function with index ${i} passed test ${j} with the args of ${args} and result of ${expected}.`)
-          }
-        } catch (e) {
-          this.addError(func, e);
+        let { args, expected } = testCases[j];
+        if (!Array.isArray(args)) {
+          args = [args];
         }
+        if (expected === Error) {
+          let temp = false;
+          try {
+            console.log("here");
+            console.log("hei", func(...args));
+            temp = true;
+            // this.addError(func, `Function with index ${i} did not pass test ${j} with the args of ${args} and result of ${expected}.`);
+          } catch (e) {
+            this.addAccepts(func, `Function with index ${i} passed test ${j} with the args of ${args} and expected result of Error.`);
+          }
+          if (temp) {
+            this.addError(func, new Error(`Function with index ${i} did not pass test ${j} with the args of ${args} and expected result of Error.`))
+          }
+        } else {
+          try {
+            if (func(...args) === expected) {
+              this.addAccepts(func, `Function with index ${i} passed test ${j} with the args of ${args} and expected result of ${expected}.`);
+            } else {
+              throw new Error(`Function with index ${i} did not pass test ${j} with the args of ${args} and expected result of ${expected}.`)
+            }
+          } catch (e) {
+            this.addError(func, e);
+          }
+        }
+
       }
     }
     this.displayResults();

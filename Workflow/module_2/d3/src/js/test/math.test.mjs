@@ -9,6 +9,6 @@ mathTest.addCase(subtract, [2, 2], 0);
 mathTest.addCase(subtract, [12, 2], 10);
 mathTest.addCase(multiply, [2, 2], 4);
 mathTest.addCase(multiply, [2, 0], 0);
-mathTest.addCase(divide, [2, 2], 1);
+mathTest.addCase(divide, [2, 0], Error);
 
 export default mathTest;
