@@ -1,4 +1,4 @@
-describe("local storage", () => {
+describe("login", () => {
   it("store and access values", () => {
     cy.visit("index.html");
     const myEmail = "eivind.holvik@noroff.no";
