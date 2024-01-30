@@ -2,6 +2,7 @@ import express from "express";
 import { connectDatabase, closeDatabase } from "./db.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import postsRoutes from "./routes/postsRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ run().catch(console.dir);
 
 app.use("/users", usersRoutes);
 app.use("/posts", postsRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000");
