@@ -22,10 +22,10 @@ export function handleJWT(authorization) {
 function checkPassword(username, password) {
   for (const user of findMany("USERS")) {
     if (user.username === username && user.password === password) {
-      return true;
+      return user.id;
     }
   }
-  return false;
+  throw new Error("Invalid username or password");
 }
 
 export const register = async (req, res) => {
@@ -34,7 +34,7 @@ export const register = async (req, res) => {
     return res.status(400).send("Username and password required");
   }
   const id = insertOne("USERS", { username, password, posts: [] });
-  return res.send({ message: "User registered", id: id });
+  return res.status(201).json({ message: "User registered", id: id });
 }
 
 export const login = async (req, res) => {
@@ -43,13 +43,11 @@ export const login = async (req, res) => {
     return res.status(400).send("Username and password required");
   }
   try {
-    if (checkPassword(username, password)) {
-      const token = jwt.sign({ username }, process.env.SECRET, { expiresIn: "1d" });
-      return res.send({ token });
-    } else {
-      throw new Error("Invalid username or password");
-    }
+    const id = checkPassword(username, password);
+    const token = jwt.sign({ username, id }, process.env.SECRET, { expiresIn: "1d" });
+    return res.send({ token });
+
   } catch (e) {
-    return res.status(401).json({ error: e.message });
+    return res.status(handleCodes(e)).json({ error: e.message });
   }
 };
