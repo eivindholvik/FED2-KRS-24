@@ -1,10 +1,9 @@
 import { DATABASE } from "./database.js";
 
-
-
 export function insertOne(collection, data) {
   DATABASE[collection].lastId++;
   DATABASE[collection].data.push({ ...data, id: DATABASE[collection].lastId });
+  return DATABASE[collection].lastId;
 }
 
 export function findOne(collection, query) {

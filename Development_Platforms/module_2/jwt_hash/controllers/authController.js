@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-import { findMany } from "../EQL.js";
+import { findMany, insertOne } from "../EQL.js";
 
 export function handleJWT(authorization) {
   const token = authorization?.split(" ")[1];
@@ -28,6 +28,14 @@ function checkPassword(username, password) {
   return false;
 }
 
+export const register = async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).send("Username and password required");
+  }
+  const id = insertOne("USERS", { username, password, posts: [] });
+  return res.send({ message: "User registered", id: id });
+}
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
