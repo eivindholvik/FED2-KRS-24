@@ -7,7 +7,7 @@
 > You should be able to gain access to 100$ credit though AWS Academy. I have not yet figured out how.
 
 <div style="text-align: right">
-  <img src="./img/AWS-Academy_logo_RGB_REV.png" alt="Alt text" width="150">
+  <img src="./img/awsacademy-logo-white.png" alt="Alt text" width="150">
 </div>
 
 ## Register for AWS
@@ -16,7 +16,7 @@
 -   Make sure you select all the free options.
 -   _void: Will later explain how to claim free credits._
 
-![register](/img/1.png)
+![register](./img/1.png)
 
 ## Virutal Machine (VM)
 
@@ -63,13 +63,16 @@
   sudo yum install nodejs npm git
 </div>
 
-2. Clone the API code from GitHub, navigate to the project and install dependencies
+2. Clone the API code from GitHub, navigate to the project and install dependencies. Recreate .env with correct information
 
 <div style="background-color: #000; color: #fff; font-family: monospace; padding: 10px; margin-bottom: 15px">
   git clone < repo_url > <br>
   cd < project_name > <br>
-  npm install
+  npm install <br>
+  echo 'URI = "< your_mongodb_auth_uri_here >"' >> .env
 </div>
+
+3. Add the VM's IP to Atlas' network access under security in the correct cluster
 
 ## Run the API with PM2
 
@@ -90,4 +93,47 @@
   sudo yum install nginx
 </div>
 
-2.
+2. Create a new configuration file for Nginx
+
+<div style="background-color: #000; color: #fff; font-family: monospace; padding: 10px; margin-bottom: 15px">
+  sudo touch /etc/nginx/conf-d/api.conf <br>
+  sudo vim /etc/nginx/conf-d/api.conf <br>
+</div>
+
+3. Add the following to the new api.conf file and write the changes
+
+> Remember to actiave "INSERT" with i
+
+```
+server {
+    listen 80;
+    server_name <your_api_domain>;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+> change to whatever port you run the api on, and change to the VMs IP from <your_api_domain>
+
+> write changes and quit vim with "Esc" :wq
+
+4. Restart Nginx for changes to take effect
+
+<div style="background-color: #000; color: #fff; font-family: monospace; padding: 10px; margin-bottom: 15px">
+  sudo service nginx restart
+</div>
+
+## Test the API
+
+-   Change the environment in postman to production. Remember to change the URL from localhost to your ip
+
+or
+
+-   Test it however you want :D
