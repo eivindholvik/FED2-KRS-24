@@ -1,10 +1,10 @@
 import { findMany, insertOne, findOne, updateArray, deleteOne } from "../EQL.js";
-import { handleJWT } from "./authController.js";
+import { handleJWT } from "./handleAuth.js";
 import { handleCodes } from "./errorHelper.js";
 
 export const getAllData = async (req, res) => {
   try {
-    handleJWT(req.headers.authorization);
+    // handleJWT(req.headers.authorization); //Disabled for testing
     return res.json(findMany("DATA"));
   } catch (e) {
     return res.status(handleCodes(e)).json({ error: e.message });
@@ -14,6 +14,7 @@ export const getAllData = async (req, res) => {
 export const createData = async (req, res) => {
   try {
     const { id: owner } = handleJWT(req.headers.authorization);
+    if (!owner) throw new Error("Unauthorized");
     const id = insertOne("DATA", { content: req.body.content, owner });
     updateArray("USERS", ((user) => user.id === owner), id, "posts");
     return res.status(201).json({ id });

@@ -2,9 +2,10 @@ export const DATABASE = {
   USERS: {
     data: [
       {
+        salt: "5f4dcc3b5aa765d61d8327deb882cf99",
         id: 1,
         username: "admin",
-        password: "admin123",
+        password: "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=", //admin123
         posts: [
           1, 2
         ]
@@ -12,7 +13,7 @@ export const DATABASE = {
       {
         id: 2,
         username: "user",
-        password: "user123",
+        password: "5gbjiw2MGbJM8O44CBgxYup81j/3kS27IrXoAyhrREY=", //user123
         posts: []
       },
     ],
