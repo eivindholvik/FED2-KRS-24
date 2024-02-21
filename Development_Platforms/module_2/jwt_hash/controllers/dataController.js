@@ -1,19 +1,47 @@
-import jwt from "jsonwebtoken";
-import "dotenv/config";
-import { DATABASE_DATA } from "../database.js";
+import { findMany, insertOne, findOne, updateArray, deleteOne } from "../EQL.js";
+import { handleJWT } from "./handleAuth.js";
+import { handleCodes } from "./errorHelper.js";
+
+export const getAllData = async (req, res) => {
+  try {
+    // handleJWT(req.headers.authorization); //Disabled for testing
+    return res.json(findMany("DATA"));
+  } catch (e) {
+    return res.status(handleCodes(e)).json({ error: e.message });
+  }
+}
+
+export const createData = async (req, res) => {
+  try {
+    const { id: owner } = handleJWT(req.headers.authorization);
+    if (!owner) throw new Error("Unauthorized");
+    const id = insertOne("DATA", { content: req.body.content, owner });
+    updateArray("USERS", ((user) => user.id === owner), id, "posts");
+    return res.status(201).json({ id });
+  } catch (e) {
+    return res.status(handleCodes(e)).json({ error: e.message });
+  }
+}
+
+export const deleteData = async (req, res) => {
+  try {
+    const { id: owner } = handleJWT(req.headers.authorization);
+    const { id } = req.params;
+    const deleted = deleteOne("DATA", ((data) => data.id === Number(id)), owner);
+    updateArray("USERS", ((user) => user.id === owner), Number(id), "posts");
+    return res.json({ message: "Data deleted", deleted });
+  } catch (e) {
+    return res.status(handleCodes(e)).json({ error: e.message });
+  }
+}
 
 export const getData = async (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ error: "Token required" });
-  }
   try {
-    jwt.verify(token, process.env.SECRET);
-    return res.json(DATABASE_DATA);
+    handleJWT(req.headers.authorization);
+    const { id } = req.params;
+    const data = findOne("DATA", ((data) => data.id === Number(id)));
+    return res.json(data);
   } catch (e) {
-    if (e.expiredAt) {
-      return res.status(401).json({ error: "Token expired" });
-    }
-    return res.status(401).json({ error: "Invalid Token" });
+    return res.status(handleCodes(e)).json({ error: e.message });
   }
 }
