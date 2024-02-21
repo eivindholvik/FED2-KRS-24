@@ -1,37 +1,20 @@
+import { useState } from "react";
+
+import "./App.css";
+import Cart from "./components/Cart";
+
 function App() {
-    const productList = [
-        { name: "Milk", price: 19.99 },
-        { name: "Bread", price: 23.99 },
-        { name: "Cheese", price: 40.99 },
-    ];
+    const [productList, setProductList] = useState([
+        { productName: "Milk", price: 192.92, id: 1 },
+        { productName: "Bread", price: 23.99, id: 2 },
+        { productName: "Cheese", price: 40.99, id: 3 },
+    ]);
+
     return (
-        <>
+        <div className="hei">
             <h1>Product cart</h1>
-            <Cart productList={productList} />
-        </>
-    );
-}
-
-function Cart({ productList }) {
-    console.log(productList);
-    return (
-        <ul>
-            {productList.map((product, index) => {
-                return (
-                    <li key={index}>
-                        <Product name={product.name} price={product.price} />
-                    </li>
-                );
-            })}
-        </ul>
-    );
-}
-
-function Product({ name, price }) {
-    return (
-        <p>
-            {name} - {price}
-        </p>
+            <Cart productList={productList} setProductList={setProductList} />
+        </div>
     );
 }
 
