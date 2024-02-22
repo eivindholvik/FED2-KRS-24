@@ -5,7 +5,6 @@ export default function Cart({ productList, setProductList }) {
         setProductList((prev) => {
             return prev.map((product, i) => {
                 if (i === Number(e.target.closest("li").id)) {
-                    console.log("hei");
                     return { ...product, toggled: !product.toggled };
                 }
                 return product;

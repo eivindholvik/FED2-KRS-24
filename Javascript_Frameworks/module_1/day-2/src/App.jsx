@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 import Cart from "./components/Cart";
+import Todo from "./components/Todo";
 
 function App() {
     const [productList, setProductList] = useState([
@@ -11,10 +12,17 @@ function App() {
     ]);
 
     return (
-        <div className="hei">
-            <h1>Product cart</h1>
-            <Cart productList={productList} setProductList={setProductList} />
-        </div>
+        <>
+            <Todo />
+            <Todo name="IKEA" />
+            <div className="hei">
+                <h1>Product cart</h1>
+                <Cart
+                    productList={productList}
+                    setProductList={setProductList}
+                />
+            </div>
+        </>
     );
 }
 
