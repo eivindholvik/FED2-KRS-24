@@ -31,7 +31,13 @@ function TodoList({ todos, setTodos }) {
     return (
         <>
             <h2>Pending</h2>
-            <ul>{pending}</ul>
+            {pending.length ? (
+                <ul>{pending}</ul>
+            ) : completed.length ? (
+                <p>No pending tasks</p>
+            ) : (
+                <p>No tasks added</p>
+            )}
             {Boolean(completed.length) && (
                 <>
                     <h2>Completed</h2>
