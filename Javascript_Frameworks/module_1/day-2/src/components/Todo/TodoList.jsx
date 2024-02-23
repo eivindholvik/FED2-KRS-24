@@ -19,15 +19,18 @@ function TodoList({ todos, setTodos }) {
             </li>
         );
     }
+    let [pending, completed] = [[], []];
 
-    const [pending, completed] = todos.reduce(
-        (acc, todo) => {
-            const li = createLi(todo);
-            todo.completed ? acc[1].push(li) : acc[0].push(li);
-            return acc;
-        },
-        [[], []]
-    );
+    if (todos) {
+        [pending, completed] = todos.reduce(
+            (acc, todo) => {
+                const li = createLi(todo);
+                todo.completed ? acc[1].push(li) : acc[0].push(li);
+                return acc;
+            },
+            [[], []]
+        );
+    }
     return (
         <>
             <h2>Pending</h2>
