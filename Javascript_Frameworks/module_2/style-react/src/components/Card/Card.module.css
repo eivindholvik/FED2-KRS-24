@@ -1,0 +1,51 @@
+.card {
+    color: #333;
+    background-color: #ececec;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16); /* Shadow */
+    margin: 10px;
+    width: 350px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.01);
+}
+
+.cardImage {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px 10px 0 0;
+}
+
+.cardBody {
+    padding: 20px;
+    margin-bottom: 40px;
+    height: auto; /* No need for fixed height */
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.behaviour {
+    composes: cardTitle;
+
+    background-color: darkolivegreen;
+    border: solid 2px black;
+    color: lightcoral;
+}
+
+.cardText {
+    font-size: 1rem;
+    margin: 0;
+    overflow: hidden;
+    color: #484848;
+    height: auto; /* No need for fixed height */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Show 2 lines of text */
+    -webkit-box-orient: vertical; /* Display text vertically */
+}
