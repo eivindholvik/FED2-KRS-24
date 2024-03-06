@@ -40,6 +40,10 @@ const Button = styled.button`
     margin: 10px;
 `;
 
+const Container = styled.div`
+    background: $primaryColor;
+`;
+
 function CustomForm() {
     const { state, dispatch } = useContext(ThemeContext);
 
@@ -47,6 +51,7 @@ function CustomForm() {
 
     return (
         <>
+            <Container>HEi</Container>
             <Button
                 theme={theme}
                 onClick={() => dispatch({ type: "TOGGLE_THEME" })}
